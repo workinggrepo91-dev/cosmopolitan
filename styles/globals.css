@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  @apply bg-white text-gray-800 antialiased;
+}
+
+.hero-gradient {
+  background: linear-gradient(90deg, rgba(51,147,255,0.12) 0%, rgba(26,115,255,0.08) 100%);
+}

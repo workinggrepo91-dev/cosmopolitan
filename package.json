@@ -1,0 +1,25 @@
+{
+  "name": "global-support-funds",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start",
+    "prisma": "prisma"
+  },
+  "dependencies": {
+    "next": "13.x",
+    "react": "18.x",
+    "react-dom": "18.x",
+    "tailwindcss": "3.x",
+    "postcss": "8.x",
+    "autoprefixer": "10.x",
+    "prisma": "5.x",
+    "@prisma/client": "5.x",
+    "bcryptjs": "2.4.3",
+    "jsonwebtoken": "9.x",
+    "formidable": "3.x",
+    "cookie": "0.5.x"
+  }
+}

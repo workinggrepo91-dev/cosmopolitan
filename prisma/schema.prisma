@@ -1,0 +1,42 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id          String    @id @default(cuid())
+  role        String    @default("USER") // Changed to String with "USER" in quotes
+  name        String
+  email       String    @unique
+  password    String
+  country     String?
+  address     String?
+  phone       String?   // Optional phone number field
+  dateOfBirth DateTime? // Optional date of birth field
+  idCard      String?
+
+  application Application?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Application {
+  id                  String   @id @default(cuid())
+  projectTitle        String
+  projectCategory     String?  // Optional category field
+  projectSummary      String   
+  fundingAmount       Float
+  status              String   @default("Submitted")
+  submissionDate      DateTime @default(now())
+  projectProposalFile String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+}
