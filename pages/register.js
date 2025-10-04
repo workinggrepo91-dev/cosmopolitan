@@ -23,34 +23,39 @@ export default function Register() {
     name: '', email: '', password: '', country: '', address: '',
     projectTitle: '', projectSummary: '', fundingAmount: '',
   });
-  const [files, setFiles] = useState({ idCard: null, projectProposalFile: null });
+  // File state is no longer needed but can be kept for when you re-add uploads
+  // const [files, setFiles] = useState({ idCard: null, projectProposalFile: null });
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-  const handleFileChange = (e) => setFiles({ ...files, [e.target.name]: e.target.files[0] });
+  // const handleFileChange = (e) => setFiles({ ...files, [e.target.name]: e.target.files[0] });
 
   const nextStep = () => setStep(s => s + 1);
   const prevStep = () => setStep(s => s - 1);
 
+  // --- CORRECTED handleSubmit FUNCTION ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
 
-    const body = new FormData();
-    Object.entries(formData).forEach(([key, value]) => body.append(key, value));
-    if (files.idCard) body.append('idCard', files.idCard);
-    if (files.projectProposalFile) body.append('projectProposalFile', files.projectProposalFile);
-
     try {
-      const res = await fetch('/api/auth/register', { method: 'POST', body });
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Set content type to JSON
+        },
+        body: JSON.stringify(formData), // Send form data as a JSON string
+      });
+
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.error || 'Registration failed.');
       }
       router.push('/dashboard');
-    } catch (err)  {    setError(err.message);
+    } catch (err) { // Fixed the missing curly brace here
+      setError(err.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -125,16 +130,18 @@ export default function Register() {
 
             {step === 3 && (
               <section className="space-y-6">
-                  <h3 className="text-xl font-semibold text-gray-800">Step 3: Finalize Your Account & Documents</h3>
+                  <h3 className="text-xl font-semibold text-gray-800">Step 3: Finalize Your Account</h3>
                   <Input name="password" label="Create Password" type="password" value={formData.password} onChange={handleChange} required />
+                  {/* --- FILE UPLOADS COMMENTED OUT --- */}
                   {/* <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Valid ID Card</label>
-                      <input type="file" name="idCard" onChange={handleFileChange} required className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"/>
+                      <input type="file" name="idCard" onChange={handleFileChange} required className="w-full ..."/>
                   </div>
                   <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Project Proposal Document</label>
-                      <input type="file" name="projectProposalFile" onChange={handleFileChange} required className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"/>
-                  </div> */}
+                      <input type="file" name="projectProposalFile" onChange={handleFileChange} required className="w-full ..."/>
+                  </div>
+                  */}
               </section>
             )}
 
