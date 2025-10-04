@@ -127,14 +127,14 @@ export default function Register() {
               <section className="space-y-6">
                   <h3 className="text-xl font-semibold text-gray-800">Step 3: Finalize Your Account & Documents</h3>
                   <Input name="password" label="Create Password" type="password" value={formData.password} onChange={handleChange} required />
-                  <div>
+                  {/* <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Valid ID Card</label>
                       <input type="file" name="idCard" onChange={handleFileChange} required className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"/>
                   </div>
                   <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Project Proposal Document</label>
                       <input type="file" name="projectProposalFile" onChange={handleFileChange} required className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"/>
-                  </div>
+                  </div> */}
               </section>
             )}
 
