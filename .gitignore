@@ -16,6 +16,8 @@
 # Local Environment Variables
 .env*.local
 
+.env
+
 # Log files
 *.log
 npm-debug.log*
@@ -25,3 +27,5 @@ pnpm-debug.log*
 
 # Test results
 /coverage
+
+
